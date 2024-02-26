@@ -104,29 +104,4 @@ const questions = [
     choicesElement.innerHTML = '';
     submitButton.style.display = 'none';
     resultElement.textContent = `You scored ${score} out of ${questions.length}.`;
-  }
-  
-  showQuestion();
-  // Set the countdown time to 5 minutes (in seconds)
-let countdownTime = 5 * 60;
-let timerInterval;
-
-function startCountdown() {
-  timerInterval = setInterval(() => {
-    countdownTime--;
-
-    if (countdownTime >= 0) {
-      const minutes = Math.floor(countdownTime / 60);
-      const seconds = countdownTime % 60;
-
-      console.log(`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`);
-    } else {
-      clearInterval(timerInterval);
-      console.log('Countdown finished!');
-      // You can add any actions you want to take after the countdown finishes here
-    }
-  }, 1000); // Update the timer every second (1000 milliseconds)
-}
-
-// Start the countdown timer
-startCountdown();
+  };
