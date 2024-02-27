@@ -50,21 +50,53 @@ const questions = [
     correctAnswer: "10 days"
   }
 ];
-  
-  let currentQuestion = 0;
-  let score = 0;
-  
-  const questionElement = document.getElementById('question');
-  const choicesElement = document.getElementById('choices');
-  const submitButton = document.getElementById('submit');
-  const resultElement = document.getElementById('result');
-  
 
-  function showQuestion() {
-  questionElement.textContent = questions[currentQuestion].question;
+let currentQuestion = 0;
+let score = 0;
+let timer = null;
+
+const questionElement = document.getElementById('questions');
+const choicesElement = document.getElementById('choices');
+const nextButton = document.getElementById('next-question');
+const resultElement = document.getElementById('result');
+const countdownElement = document.getElementById('countdown');
+const playAgainButton = document.getElementById('play-again');
+playAgainButton.addEventListener('click', startQuiz);
+
+// Function to shuffle questions
+function shuffleQuestions() {
+  for (let i = questions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [questions[i], questions[j]] = [questions[j], questions[i]];
+  }
+}
+
+// Function to start the quiz
+function startQuiz() {
+  const rulesSection = document.getElementById('rules');
+  rulesSection.classList.remove('hidden');
+  shuffleQuestions(); // Shuffle questions before starting
+  currentQuestion = 0;
+  score = 0;
+  showNextQuestion();
+}
+
+// Function to display the next question
+function showNextQuestion() {
+  if (currentQuestion < questions.length) {
+    displayQuestion();
+  } else {
+    showResult();
+  }
+}
+
+// Function to display a question
+function displayQuestion() {
+  const question = questions[currentQuestion];
+  questionElement.textContent = question.question;
   choicesElement.innerHTML = '';
 
-  questions[currentQuestion].choices.forEach((choice) => {
+  question.choices.forEach(choice => {
     const button = document.createElement('button');
     button.textContent = choice;
     button.addEventListener('click', () => {
@@ -73,35 +105,47 @@ const questions = [
     choicesElement.appendChild(button);
   });
 
-  if(currentQuestion >= 2) {
-    const restartButton = document.createElement('button');
-    restartButton.textContent = 'Restart';
-    restartButton.addEventListener('click', () => {
-        currentQuestion = 0;
-        score = 0;
-        showQuestion();
-        resultElement.textContent = '';
-        submitButton.style.display = 'block'; // Make sure to show the submit button again
-    });
-    choicesElement.appendChild(restartButton);
-  }
+  startTimer();
 }
-  function checkAnswer(choice) {
-    if (choice === questions[currentQuestion].correctAnswer) {
-      score++;
-    }
-    
-    currentQuestion++;
-    if (currentQuestion < questions.length) {
-      showQuestion();
-    } else {
-      showResult();
-    }
+
+// Function to check the answer
+function checkAnswer(choice) {
+  const question = questions[currentQuestion];
+  if (choice === question.correctAnswer) {
+    score++;
   }
-  
-  function showResult() {
-    questionElement.textContent = '';
-    choicesElement.innerHTML = '';
-    submitButton.style.display = 'none';
-    resultElement.textContent = `You scored ${score} out of ${questions.length}.`;
-  };
+  currentQuestion++;
+  stopTimer();
+  showNextQuestion();
+}
+
+// Function to start the timer
+function startTimer() {
+  let timeLeft = 15;
+  countdownElement.textContent = timeLeft;
+
+  timer = setInterval(() => {
+    timeLeft--;
+    countdownElement.textContent = timeLeft;
+
+    if (timeLeft === 0) {
+      stopTimer();
+      showNextQuestion();
+    }
+  }, 1000);
+}
+
+// Function to stop the timer
+function stopTimer() {
+  clearInterval(timer);
+}
+
+// Function to display the quiz result
+function showResult() {
+  questionElement.textContent = '';
+  choicesElement.textContent = '';
+  resultElement.textContent = `You scored ${score} out of ${questions.length}.`;
+  countdownElement.textContent = '';
+  nextButton.style.display = 'none'; 
+  playAgainButton.style.display = 'block';
+}
