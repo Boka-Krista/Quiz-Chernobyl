@@ -54,14 +54,14 @@ const questions = [
 let currentQuestion = 0;
 let score = 0;
 let timer = null;
+let rulesShown = false;
 
 const questionElement = document.getElementById('questions');
 const choicesElement = document.getElementById('choices');
-const nextButton = document.getElementById('next-question');
+const nextButton = document.getElementById('next');
 const resultElement = document.getElementById('result');
 const countdownElement = document.getElementById('countdown');
 const playAgainButton = document.getElementById('play-again');
-playAgainButton.addEventListener('click', startQuiz);
 
 // Function to shuffle questions
 function shuffleQuestions() {
@@ -75,7 +75,7 @@ function shuffleQuestions() {
 function startQuiz() {
   const rulesSection = document.getElementById('rules');
   rulesSection.classList.remove('hidden');
-  shuffleQuestions(); // Shuffle questions before starting
+  shuffleQuestions();
   currentQuestion = 0;
   score = 0;
   showNextQuestion();
@@ -146,6 +146,32 @@ function showResult() {
   choicesElement.textContent = '';
   resultElement.textContent = `You scored ${score} out of ${questions.length}.`;
   countdownElement.textContent = '';
-  nextButton.style.display = 'none'; 
+  nextButton.style.display = 'none';
   playAgainButton.style.display = 'block';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const welcomeMessage = document.getElementById('welcome');
+  const rulesSection = document.getElementById('rules');
+
+  welcomeMessage.addEventListener('click', function() {
+    welcomeMessage.style.display = 'none';
+    rulesSection.classList.remove('hidden');
+    rulesShown = true;
+  });
+
+  nextButton.addEventListener('click', function() {
+    if (!rulesShown) {
+      hideRules();
+      rulesShown = true;
+    }
+    showNextQuestion();
+  });
+
+  startQuiz();
+});
+
+function hideRules() {
+  const rulesSection = document.getElementById('rules');
+  rulesSection.style.display = 'none';
 }
