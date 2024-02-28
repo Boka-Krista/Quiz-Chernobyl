@@ -4,23 +4,47 @@
   <title>Quiz</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="assets/style.css">
+  <script>
+    function showWelcomeMessage() {
+      var welcomeMessage = document.getElementById("welcome");
+      welcomeMessage.style.display = "block";
+    }
+
+    function hideWelcomeMessage() {
+      var welcomeMessage = document.getElementById("welcome");
+      welcomeMessage.style.display = "none";
+    }
+
+    function showRules() {
+      var rulesSection = document.getElementById("rules");
+      rulesSection.style.display = "block";
+    }
+
+    function hideRules() {
+      var rulesSection = document.getElementById("rules");
+      rulesSection.style.display = "none";
+    }
+  </script>
 </head>
 <body> 
-  <div id="welcome">
+  <div id="welcome" style="display: none;">
     <h1>Welcome to the Quiz</h1>
     <p>This quiz tests your knowledge about Chernobyl. 
       Answer each question to the best of your ability!</p>
+    <button onclick="hideWelcomeMessage()">Start Quiz</button>
   </div>
+
   <!-- Rules section -->
-  <div id="rules" class="hidden">
+  <div id="rules" style="display: none;">
     <h2>Quiz Rules</h2>
-    
     <ul>
       <li>You will have 15 seconds to answer each question.</li>
       <li>Click the button next to each question to submit your answer.</li>
       <li>After answering all questions, your score will be displayed.</li>
     </ul>
+    <button onclick="hideRules()">Start Quiz</button>
   </div>
+
   <!-- Quiz content -->
   <div id="questions"></div>
   <div id="choices"></div>
