@@ -1,38 +1,29 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Quiz</title>
-  <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="assets/style.css">
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chernobyl Quiz</title>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
-<body> 
-  <div id="welcome" class="hide">
-    <h1>Welcome to the Quiz</h1>
-    <p>This quiz tests your knowledge about Chernobyl. 
-      Answer each question to the best of your ability!</p>
-    
-  </div>
-
-  <!-- Rules section -->
-  <div id="rules" class="hide">
-    <h2>Quiz Rules</h2>
-    <ul>
-      <li>You will have 15 seconds to answer each question.</li>
-      <li>Click the button next to each question to submit your answer.</li>
-      <li>After answering all questions, your score will be displayed.</li>
-    </ul>
-    <button>Start Quiz</button>
-  </div>
-
-  <!-- Quiz content -->
-  <div id="questions"></div>
-  <div id="choices"></div>
-  <button id="next">Next</button>
-  <div id="result"></div>
-  <button id="play-again" style="display:none;">Play Again</button>
-  <div id="countdown"></div>
-
-  <script src="index.js"></script>
+<body>
+    <div id="welcome" class="hidden">
+        <h1>Welcome to the Chernobyl Quiz!</h1>
+        <button id="start">Start Quiz</button>
+    </div>
+    <div id="rules" class="hidden">
+        <h2>Rules:</h2>
+        <p>Answer each question within the time limit.</p>
+        <button id="rules-done">Done</button>
+    </div>
+    <div id="quiz-container" class="hidden">
+        <div id="question"></div>
+        <div id="choices"></div>
+        <div id="countdown">Time: <span id="timer">15</span></div>
+        <div id="result"></div>
+        <button id="next">Next Question</button>
+    </div>
+    <script src="index.js"></script>
 </body>
 </html>

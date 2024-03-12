@@ -53,125 +53,99 @@ const questions = [
 
 let currentQuestion = 0;
 let score = 0;
-let timer = null;
-let rulesShown = false;
+let timer;
 
-const questionElement = document.getElementById('questions');
-const choicesElement = document.getElementById('choices');
-const nextButton = document.getElementById('next');
-const resultElement = document.getElementById('result');
-const countdownElement = document.getElementById('countdown');
-const playAgainButton = document.getElementById('play-again');
+document.getElementById('start').addEventListener('click', function() {
+  document.getElementById('welcome').classList.add('hidden');
+  document.getElementById('rules').classList.remove('hidden');
+});
 
-// Function to shuffle questions
-function shuffleQuestions() {
-  for (let i = questions.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [questions[i], questions[j]] = [questions[j], questions[i]];
-  }
-}
+document.getElementById('rules-done').addEventListener('click', function() {
+  document.getElementById('rules').classList.add('hidden');
+  document.getElementById('quiz-container').classList.remove('hidden');
+  showQuestion();
+});
 
-// Function to start the quiz
-function startQuiz() {
-  const rulesSection = document.getElementById('rules');
-  rulesSection.classList.remove('hidden');
-  shuffleQuestions();
-  currentQuestion = 0;
-  score = 0;
-  showNextQuestion();
-}
-
-// Function to display the next question
-function showNextQuestion() {
+function showQuestion() {
   if (currentQuestion < questions.length) {
-    displayQuestion();
+      const questionElement = document.getElementById('question');
+      questionElement.textContent = questions[currentQuestion].question;
+
+      const choicesElement = document.getElementById('choices');
+      choicesElement.innerHTML = '';
+      questions[currentQuestion].choices.forEach(choice => {
+          const button = document.createElement('button');
+          button.textContent = choice;
+          button.addEventListener('click', () => checkAnswer(choice));
+          choicesElement.appendChild(button);
+      });
+
+      resetState(); // Reset the state before showing the next question
+      startTimer();
   } else {
-    showResult();
+      stopTimer(); 
+      displayFinalResults(); 
   }
 }
 
-// Function to display a question
-function displayQuestion() {
-  const question = questions[currentQuestion];
-  questionElement.textContent = question.question;
-  choicesElement.innerHTML = '';
-
-  question.choices.forEach(choice => {
-    const button = document.createElement('button');
-    button.textContent = choice;
-    button.addEventListener('click', () => {
-      checkAnswer(choice);
-    });
-    choicesElement.appendChild(button);
-  });
-
-  startTimer();
-}
-
-// Function to check the answer
 function checkAnswer(choice) {
-  const question = questions[currentQuestion];
-  if (choice === question.correctAnswer) {
+const isCorrect = choice === questions[currentQuestion].correctAnswer;
+if (isCorrect) {
     score++;
-  }
-  currentQuestion++;
-  stopTimer();
-  showNextQuestion();
+}
+// Disable all choice buttons
+const choiceButtons = document.getElementById('choices').children;
+for (let i = 0; i < choiceButtons.length; i++) {
+    choiceButtons[i].disabled = true;
+    // Highlight the correct or incorrect choice
+    if (choiceButtons[i].textContent === choice) {
+        choiceButtons[i].classList.add(isCorrect ? 'correct' : 'incorrect');
+    }
+}
+// Move to the next question or show final results
+currentQuestion++;
+if (currentQuestion < questions.length) {
+    showQuestion();
+} else {
+    stopTimer();
+    displayFinalResults();
+}
 }
 
-// Function to start the timer
+document.getElementById('next').addEventListener('click', function() {
+showQuestion();
+});
+
+function resetState() {
+const choiceButtons = document.getElementById('choices').children;
+for (let i = 0; i < choiceButtons.length; i++) {
+  choiceButtons[i].disabled = false;
+  choiceButtons[i].classList.remove('correct', 'incorrect');
+}
+document.getElementById('next').classList.add('hide');
+}
+let timerInterval;
+let timeLeft = 5*60; // Adjust this to set the timer duration in seconds
+
 function startTimer() {
-  let timeLeft = 15;
-  countdownElement.textContent = timeLeft;
-
-  timer = setInterval(() => {
-    timeLeft--;
-    countdownElement.textContent = timeLeft;
-
-    if (timeLeft === 0) {
-      stopTimer();
-      showNextQuestion();
+  timerInterval = setInterval(() => {
+    if (timeLeft > 0) {
+      timeLeft--;
+      document.getElementById("timer").textContent = timeLeft;
+    } else {
+      endQuiz();
     }
   }, 1000);
 }
 
-// Function to stop the timer
 function stopTimer() {
-  clearInterval(timer);
+  clearInterval(timerInterval);
 }
-
-// Function to display the quiz result
-function showResult() {
-  questionElement.textContent = '';
-  choicesElement.textContent = '';
-  resultElement.textContent = `You scored ${score} out of ${questions.length}.`;
-  countdownElement.textContent = '';
-  nextButton.style.display = 'none';
-  playAgainButton.style.display = 'block';
+function displayFinalResults() {
+  document.getElementById("quiz").classList.add("hidden");
+  alert(`Quiz ended! Your score is ${score}/${questions.length}`);
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-  const welcomeMessage = document.getElementById('welcome');
-  const rulesSection = document.getElementById('rules');
-
-  welcomeMessage.addEventListener('click', function() {
-    welcomeMessage.style.display = 'none';
-    rulesSection.classList.remove('hidden');
-    rulesShown = true;
-  });
-
-  nextButton.addEventListener('click', function() {
-    if (!rulesShown) {
-      hideRules();
-      rulesShown = true;
-    }
-    showNextQuestion();
-  });
-
-  startQuiz();
-});
-
-function hideRules() {
-  const rulesSection = document.getElementById('rules');
-  rulesSection.style.display = 'none';
+function endQuiz() {
+  stopTimer(); // Stop the timer if it's running
+  displayFinalResults();
 }
