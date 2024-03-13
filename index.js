@@ -1,6 +1,6 @@
 const questions = [
   {
-    question: "Wher is Chernobyl located?",
+    question: "Where is Chernobyl located?",
     choices: ["USA", "Russia", "Ukraine", "Indonesia"],
     correctAnswer: "Ukraine"
   },
@@ -52,100 +52,52 @@ const questions = [
 ];
 
 let currentQuestion = 0;
-let score = 0;
-let timer;
+let correctAnswers = 0;
 
-document.getElementById('start').addEventListener('click', function() {
-  document.getElementById('welcome').classList.add('hidden');
-  document.getElementById('rules').classList.remove('hidden');
-});
+function displayQuestion() {
+    const questionElement = document.getElementById('question');
+    const choicesElement = document.getElementById('choices');
+    const resultElement = document.getElementById('result');
+    
+    questionElement.textContent = questions[currentQuestion].question;
+    choicesElement.innerHTML = '';
 
-document.getElementById('rules-done').addEventListener('click', function() {
-  document.getElementById('rules').classList.add('hidden');
-  document.getElementById('quiz-container').classList.remove('hidden');
-  showQuestion();
-});
+    questions[currentQuestion].choices.forEach(choice => {
+        const button = document.createElement('button');
+        button.textContent = choice;
+        button.addEventListener('click', () => checkAnswer(choice));
+        choicesElement.appendChild(button);
+    });
 
-function showQuestion() {
-  if (currentQuestion < questions.length) {
-      const questionElement = document.getElementById('question');
-      questionElement.textContent = questions[currentQuestion].question;
-
-      const choicesElement = document.getElementById('choices');
-      choicesElement.innerHTML = '';
-      questions[currentQuestion].choices.forEach(choice => {
-          const button = document.createElement('button');
-          button.textContent = choice;
-          button.addEventListener('click', () => checkAnswer(choice));
-          choicesElement.appendChild(button);
-      });
-
-      resetState(); // Reset the state before showing the next question
-      startTimer();
-  } else {
-      stopTimer(); 
-      displayFinalResults(); 
-  }
+    resultElement.textContent = ''; // Clear previous result
 }
 
 function checkAnswer(choice) {
-const isCorrect = choice === questions[currentQuestion].correctAnswer;
-if (isCorrect) {
-    score++;
-}
-// Disable all choice buttons
-const choiceButtons = document.getElementById('choices').children;
-for (let i = 0; i < choiceButtons.length; i++) {
-    choiceButtons[i].disabled = true;
-    // Highlight the correct or incorrect choice
-    if (choiceButtons[i].textContent === choice) {
-        choiceButtons[i].classList.add(isCorrect ? 'correct' : 'incorrect');
-    }
-}
-// Move to the next question or show final results
-currentQuestion++;
-if (currentQuestion < questions.length) {
-    showQuestion();
-} else {
-    stopTimer();
-    displayFinalResults();
-}
-}
-
-document.getElementById('next').addEventListener('click', function() {
-showQuestion();
-});
-
-function resetState() {
-const choiceButtons = document.getElementById('choices').children;
-for (let i = 0; i < choiceButtons.length; i++) {
-  choiceButtons[i].disabled = false;
-  choiceButtons[i].classList.remove('correct', 'incorrect');
-}
-document.getElementById('next').classList.add('hide');
-}
-let timerInterval;
-let timeLeft = 5*60; // Adjust this to set the timer duration in seconds
-
-function startTimer() {
-  timerInterval = setInterval(() => {
-    if (timeLeft > 0) {
-      timeLeft--;
-      document.getElementById("timer").textContent = timeLeft;
+    const resultElement = document.getElementById('result');
+    
+    if (choice === questions[currentQuestion].correctAnswer) {
+        resultElement.textContent = 'Correct!';
+        correctAnswers++;
     } else {
-      endQuiz();
+        resultElement.textContent = 'Wrong!';
     }
-  }, 1000);
+
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        displayQuestion();
+    } else {
+        showScore();
+    }
 }
 
-function stopTimer() {
-  clearInterval(timerInterval);
+function showScore() {
+    const scoreElement = document.getElementById('score');
+    scoreElement.textContent = `You answered ${correctAnswers} questions correctly out of ${questions.length}.`;
 }
-function displayFinalResults() {
-  document.getElementById("quiz").classList.add("hidden");
-  alert(`Quiz ended! Your score is ${score}/${questions.length}`);
-}
-function endQuiz() {
-  stopTimer(); // Stop the timer if it's running
-  displayFinalResults();
-}
+
+document.getElementById('restartQuiz').addEventListener('click', () => {
+    currentQuestion = 0;
+    correctAnswers = 0;
+    displayQuestion();
+});
