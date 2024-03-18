@@ -1,5 +1,19 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-weight: 700;
+    background-image: url('assets/image/chernobyl.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #c3af42;
+    position: relative; /* Set position to relative for proper positioning of child elements */
+}
+
 header {
-    position: relative;
+    position: absolute; /* Position the header absolutely relative to the body */
+    top: 0; /* Position it at the top of the body */
+    left: 0;
+    width: 100%;
     text-align: center;
     padding-top: 40px; /* Adjust this value as needed */
     z-index: 2; /* Ensure header text appears above background */
@@ -8,28 +22,26 @@ header {
 .quiz-container {
     max-width: 600px;
     margin: 0 auto;
-    padding: 50px;
-    background-color:transparent;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background for better readability */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    position: relative;
+    position: relative; /* Set position to relative for proper positioning of child elements */
     z-index: 1; /* Ensure quiz container appears above background */
-    margin-top: 200px; /* Adjust this value to move the quiz container down */
-    font-size: 500;
-    color: white;
-    font-family: 'Times New Roman', Times, serif;
+    margin-top: 100px; /* Adjust this value to move the quiz container down */
+    font-size: 16px; /* Adjust font size */
+    color: white; /* Adjust text color */
 }
-
 
 button {
     background-color: #4CAF50;
     color: white;
-    padding: 15px 30px; /* Increase padding for bigger buttons */
+    padding: 15px 30px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    margin-top: 30px; /* Increase margin for better spacing */
-    font-size: 20px; /* Increase font size for better readability */
+    margin-top: 30px;
+    font-size: 20px;
 }
 
 button:hover {
@@ -37,19 +49,6 @@ button:hover {
 }
 
 #question {
-    font-size: 24px; /* Increase font size for larger questions */
-    margin-bottom: 60px; /* Add some bottom margin for better spacing */
+    font-size: 24px;
+    margin-bottom: 20px;
 }
-
-body {
-    font-weight: 700;
-    width: 100vw;
-    height: 100vh;
-    background: url('/assets/image/chernobyl.jpeg');
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100vh;
-    background-size: cover;
-    color: #c3af42;
-}
-
