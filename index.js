@@ -73,23 +73,24 @@ function displayQuestion() {
 }
 
 function checkAnswer(choice) {
-    const resultElement = document.getElementById('result');
-    
-    if (choice === questions[currentQuestion].correctAnswer) {
-        resultElement.textContent = 'Correct!';
-        correctAnswers++;
-    } else {
-        resultElement.textContent = 'Wrong!';
-    }
+  const resultElement = document.getElementById('result');
+  
+  if (questions[currentQuestion] && choice === questions[currentQuestion].correctAnswer) {
+      resultElement.textContent = 'Correct!';
+      correctAnswers++;
+  } else {
+      resultElement.textContent = 'Wrong!';
+  }
 
-    currentQuestion++;
+  currentQuestion++;
 
-    if (currentQuestion < questions.length) {
-        displayQuestion();
-    } else {
-        showScore();
-    }
+  if (currentQuestion < questions.length) {
+      displayQuestion();
+  } else {
+      showScore();
+  }
 }
+
 
 function showScore() {
     const scoreElement = document.getElementById('score');

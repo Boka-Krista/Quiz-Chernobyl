@@ -8,15 +8,16 @@ header {
 .quiz-container {
     max-width: 600px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 50px;
     background-color:transparent;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 1; /* Ensure quiz container appears above background */
-    margin-top: 100px; /* Adjust this value to move the quiz container down */
+    margin-top: 200px; /* Adjust this value to move the quiz container down */
     font-size: 500;
-    color: red;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 
@@ -37,7 +38,7 @@ button:hover {
 
 #question {
     font-size: 24px; /* Increase font size for larger questions */
-    margin-bottom: 20px; /* Add some bottom margin for better spacing */
+    margin-bottom: 60px; /* Add some bottom margin for better spacing */
 }
 
 body {
@@ -48,3 +49,4 @@ body {
     background-size: cover;
     color: #c3af42;
 }
+
