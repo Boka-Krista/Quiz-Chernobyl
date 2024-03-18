@@ -2,21 +2,21 @@ body {
     margin: 0;
     padding: 0;
     font-weight: 700;
-    background-image: url('assets/image/chernobyl.jpeg');
+    background-image: url('/assets/image/chernobyl.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
     color: #c3af42;
     position: relative; /* Set position to relative for proper positioning of child elements */
+    height: 100vh; /* Ensure the body covers the entire viewport height */
 }
 
-header {
-    position: absolute; /* Position the header absolutely relative to the body */
-    top: 0; /* Position it at the top of the body */
+.welcome-container {
+    position: absolute; /* Position the welcome container absolutely relative to the body */
+    top: 20px; /* Position it at the top of the body with some space */
     left: 0;
     width: 100%;
     text-align: center;
-    padding-top: 40px; /* Adjust this value as needed */
-    z-index: 2; /* Ensure header text appears above background */
+    z-index: 2; /* Ensure welcome container appears above background */
 }
 
 .quiz-container {
@@ -26,9 +26,11 @@ header {
     background-color: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background for better readability */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    position: relative; /* Set position to relative for proper positioning of child elements */
-    z-index: 1; /* Ensure quiz container appears above background */
-    margin-top: 100px; /* Adjust this value to move the quiz container down */
+    position: absolute; /* Position the quiz container absolutely relative to the body */
+    top: 50%; /* Position it at the vertical center of the viewport */
+    left: 50%; /* Position it at the horizontal center of the viewport */
+    transform: translate(-50%, -50%); /* Center the quiz container */
+    z-index: 2; /* Ensure quiz container appears above background */
     font-size: 16px; /* Adjust font size */
     color: white; /* Adjust text color */
 }
@@ -40,8 +42,8 @@ button {
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    margin-top: 30px;
-    font-size: 20px;
+    margin-top: 20px; /* Increase margin for better spacing */
+    font-size: 20px; /* Increase font size for better readability */
 }
 
 button:hover {
@@ -49,6 +51,6 @@ button:hover {
 }
 
 #question {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 24px; /* Increase font size for larger questions */
+    margin-bottom: 20px; /* Add some bottom margin for better spacing */
 }
