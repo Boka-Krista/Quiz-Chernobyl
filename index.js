@@ -1,4 +1,4 @@
-const questions = [
+let questions = [
   {
     question: "Where is Chernobyl located?",
     choices: ["USA", "Russia", "Ukraine", "Indonesia"],
@@ -101,3 +101,36 @@ document.getElementById('restartQuiz').addEventListener('click', () => {
     correctAnswers = 0;
     displayQuestion();
 });
+// Function to shuffle an array
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function shuffleQuestionsAndChoices() {
+  // Shuffle questions
+  questions = shuffleArray(questions);
+
+  // Shuffle choices for each question
+  questions.forEach(question => {
+      question.choices = shuffleArray(question.choices);
+  });
+}
+
+// Function to reset the quiz
+function resetQuiz() {
+  currentQuestion = 0;
+  correctAnswers = 0;
+  shuffleQuestionsAndChoices(); // Shuffle questions and choices again
+  displayQuestion(); // Display the first question
+  const scoreElement = document.getElementById('score');
+  scoreElement.textContent = ''; // Clear the score display
+}
+
+// Event listener for the "Restart" button
+document.getElementById('restartQuiz').addEventListener('click', resetQuiz);
+
+
