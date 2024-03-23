@@ -6,21 +6,21 @@ let questions = [
   },
   {
     question: "What happened in Chernobyl?",
-    choices: ["Olympic games", "Bancrupsy", "Nuclear disaster", "Civil war"],
+    choices: ["Olympic games", "Bankruptcy", "Nuclear disaster", "Civil war"],
     correctAnswer: "Nuclear disaster"
   },
   {
-    question: "When did nuclear accident happen in Chernobyl?",
+    question: "When did the nuclear accident happen in Chernobyl?",
     choices: ["3 Feb 2002", "26 Apr 1986", "25 Jun 1972", "18 Oct 1957"],
     correctAnswer: "26 Apr 1986"
   },
   {
     question: "How big is the exclusion zone in Chernobyl?",
-    choices: ["2.600 square kilometers", "30 square kilometers", "3000 square kilometers", "10 square kilometers"],
-    correctAnswer: "2.600 square kilometers"
+    choices: ["2,600 square kilometers", "30 square kilometers", "3000 square kilometers", "10 square kilometers"],
+    correctAnswer: "2,600 square kilometers"
   },
   {
-    question: "Which country was first to report about possible accident in Chernobyl?",
+    question: "Which country was the first to report about a possible accident in Chernobyl?",
     choices: ["Soviet Union", "Sweden", "Germany", "Italy"],
     correctAnswer: "Sweden"
   },
@@ -30,19 +30,19 @@ let questions = [
     correctAnswer: "30 km"
   },
   {
-    question: "When would be exclusion zone considered habitable again?",
+    question: "When would the exclusion zone be considered habitable again?",
     choices: ["Never", "50 years", "300+ years", "120 years"],
     correctAnswer: "300+ years"
   },
   {
-    question: "When did evacuation in Pripyat (nearby town built for workers at the powerplant) happened?",
+    question: "When did evacuation in Pripyat (nearby town built for workers at the power plant) happen?",
     choices: ["Immediately after the explosion", "Next day", "Three days after the accident", "A week after the accident"],
     correctAnswer: "Three days after the accident"
   },
   {
     question: "What did the hospital staff do with contaminated clothing/uniforms?",
-    choices: ["Left with the patients", "Burned them", "Returned to burning plant", "Collected in hospitals basement"],
-    correctAnswer: "Collected in hospitals basement"
+    choices: ["Left with the patients", "Burned them", "Returned to the burning plant", "Collected in the hospital's basement"],
+    correctAnswer: "Collected in the hospital's basement"
   },
   {
     question: "For how long did Chernobyl burn?",
@@ -65,6 +65,7 @@ function displayQuestion() {
     questions[currentQuestion].choices.forEach(choice => {
         const button = document.createElement('button');
         button.textContent = choice;
+        button.classList.add('choice'); // Add the 'choice' class to each button
         button.addEventListener('click', () => checkAnswer(choice));
         choicesElement.appendChild(button);
     });
@@ -73,65 +74,53 @@ function displayQuestion() {
 }
 
 function checkAnswer(choice) {
-  const resultElement = document.getElementById('result');
-  
-  if (questions[currentQuestion] && choice === questions[currentQuestion].correctAnswer) {
-      resultElement.textContent = 'Correct!';
-      correctAnswers++;
-  } else {
-      resultElement.textContent = 'Wrong!';
-  }
+    const resultElement = document.getElementById('result');
+    const correctAnswer = questions[currentQuestion].correctAnswer.toLowerCase(); // Convert to lowercase for case-insensitive comparison
+    const chosenButton = document.querySelector('.chosen');
+    
+    if (!chosenButton) {
+        const buttons = document.querySelectorAll('.choice');
+        buttons.forEach(button => {
+            if (button.textContent.toLowerCase() === choice.toLowerCase()) {
+                button.classList.add('chosen');
+                if (button.textContent.toLowerCase() === correctAnswer) {
+                    button.style.backgroundColor = 'green';
+                    resultElement.textContent = 'Correct!';
+                    resultElement.style.color = 'green';
+                    correctAnswers++;
+                } else {
+                    button.style.backgroundColor = 'red';
+                    resultElement.textContent = 'Wrong!';
+                    resultElement.style.color = 'red';
+                }
+            } else {
+                button.disabled = true; // Disable buttons after answering
+            }
+        });
 
-  currentQuestion++;
+        currentQuestion++;
 
-  if (currentQuestion < questions.length) {
-      displayQuestion();
-  } else {
-      showScore();
-  }
+        if (currentQuestion < questions.length) {
+            setTimeout(displayQuestion, 1000); // Display next question after 1 second
+        } else {
+            showScore();
+        }
+    }
 }
-
 
 function showScore() {
     const scoreElement = document.getElementById('score');
     scoreElement.textContent = `You answered ${correctAnswers} questions correctly out of ${questions.length}.`;
 }
 
-document.getElementById('restartQuiz').addEventListener('click', () => {
+function resetQuiz() {
     currentQuestion = 0;
     correctAnswers = 0;
     displayQuestion();
-});
-// Function to shuffle an array
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
 }
 
-function shuffleQuestionsAndChoices() {
-  // Shuffle questions
-  questions = shuffleArray(questions);
-
-  // Shuffle choices for each question
-  questions.forEach(question => {
-      question.choices = shuffleArray(question.choices);
-  });
-}
-
-// Function to reset the quiz
-function resetQuiz() {
-  currentQuestion = 0;
-  correctAnswers = 0;
-  shuffleQuestionsAndChoices(); // Shuffle questions and choices again
-  displayQuestion(); // Display the first question
-  const scoreElement = document.getElementById('score');
-  scoreElement.textContent = ''; // Clear the score display
-}
-
-// Event listener for the "Restart" button
 document.getElementById('restartQuiz').addEventListener('click', resetQuiz);
 
-
+// Initial display of the first question
+displayQuestion();
+``
