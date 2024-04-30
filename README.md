@@ -1,115 +1,29 @@
 # [QUIZ CHERNOBYL](https://boka-krista.github.io/Quiz-Chernobyl)
 
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 START OF NOTES (to be deleted)
-🛑
-🛑 In this section, you will include a few paragraphs providing an overview of your project.
-🛑 Essentially, this part is your "sales pitch".
-🛑
-🛑 At this stage, you should have a name for your project so use it!
-🛑 Don't introduce the project as a "portfolio project" for the diploma.
-🛑
-🛑 In this section, describe what the project hopes to accomplish, who it is intended to target, and how it will be useful to the target audience.
-🛑
-🛑 Consider adding a mockup image using the "Am I Responsive" website.
-🛑 Here's your deployed site as an example:
-🛑 https://ui.dev/amiresponsive?url=https://boka-krista.github.io/Quiz-Chernobyl
-🛑
-🛑 Screenshots for the README and testing should not be inside of `assets/` or `static/` image folders.
-🛑 (reminder: `assets/` and `static/` are for files used on the live site, not documentation)
-🛑 Consider adding a new folder called `documentation`, and add the amiresponsive screenshot inside of that folder.
-🛑 To add the image into your README, use this format:
-🛑 (assuming you have a new folder called `documentation` with an image called "mockup.png")
-🛑
-🛑 ![screenshot](documentation/mockup.png)
-🛑
-🛑 Note: Markdown files (.md) should not contain HTML elements like `img`, `br`, `div`, `a`, etc, only Markdown formatting.
-🛑 Find out more about using Markdown elements here:
-🛑 https://pandao.github.io/editor.md/en.html
-🛑
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 END OF NOTES (to be deleted)
+Originally I've been thinking to create page in honor to those who been involved in Chernobyl and in cleanup after the accident. For a while I was trying to get more information on it - what happened and what was the aftermath of it. So decided to create a quiz with 10 relatively easy questions of the events. Hopefully people trying the quiz may learn something new as well.
 
 ## UX
 
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 START OF NOTES (to be deleted)
-🛑
-🛑 In this section, you will briefly explain your design processes.
-🛑
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 END OF NOTES (to be deleted)
+Originally I wanted to use the famous Ferris wheel as an background image, but along with the text it was harder to maintain good contrast with the text, so I've change it to pannel room, which is colourwise more even, so easier to pick up one font colour.
 
 ### Colour Scheme
 
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 START OF NOTES (to be deleted)
-🛑
-🛑 Explain your colours and the colour scheme.
-🛑
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 END OF NOTES (to be deleted)
 
-- `#000000` used for primary text.
-- `#E84610` used for primary highlights.
-- `#4A4A4F` used for secondary text.
-- `#009FE3` used for secondary highlights.
 
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 START OF NOTES (to be deleted)
-🛑
-🛑 Consider adding a link and screenshot for your colour scheme using "coolors".
-🛑 https://coolors.co/generate
-🛑
-🛑 When you add a colour to the palette, the URL is dynamically updated, making it easier for you to return back to your colour palette later if needed.
-🛑
-🛑 Example:
-🛑
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 END OF NOTES (to be deleted)
+- `#ffffff` used for primary text.
+- `#45a049` used for primary highlights.
+- `#0000ff` used for secondary text.
+- `#ff0000` used for secondary highlights.
 
-I used [coolors.co](https://coolors.co/e84610-009fe3-4a4a4f-445261-d63649-e6ecf0-000000) to generate my colour palette.
 
-![screenshot](documentation/coolors.png)
-
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 START OF NOTES (to be deleted)
-🛑
-🛑 ⚠️ ONLY IF YOU ACTUALLY ADDED `:root` variables in CSS! ⚠️
-🛑 If you've used CSS `:root` variables, consider also including a code snippet here!
-🛑
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 END OF NOTES (to be deleted)
-
-I've used CSS `:root` variables to easily update the global colour scheme by changing only one value, instead of everywhere in the CSS file.
-
-```css
-:root {
-    /* P = Primary | S = Secondary */
-    --p-text: #000000;
-    --p-highlight: #E84610;
-    --s-text: #4A4A4F;
-    --s-highlight: #009FE3;
-    --white: #FFFFFF;
-    --black: #000000;
-}
-```
 
 ### Typography
 
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 START OF NOTES (to be deleted)
-🛑
-🛑 Explain any fonts and icon libraries used, like Google Fonts and/or Font Awesome.
-🛑
-🛑 Consider adding a link to each font used, and the Font Awesome site if used (or similar icon library).
-🛑
-🛑 Example:
-🛑
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 END OF NOTES (to be deleted)
-
-- [Montserrat](https://fonts.google.com/specimen/Montserrat) was used for the primary headers and titles.
-
-- [Lato](https://fonts.google.com/specimen/Lato) was used for all other secondary text.
-
-- [Font Awesome](https://fontawesome.com) icons were used throughout the site, such as the social media icons in the footer.
+ font-family:Verdana, Geneva, Tahoma, sans-serif;
 
 ## User Stories
 
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 START OF NOTES (to be deleted)
-🛑
-🛑 In this section, list all of your user stories for the project.
-🛑
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 END OF NOTES (to be deleted)
+Although, never been studying about it, it seemed interesting, and easy enough - on avarege the score was 7 out of 10.
 
 ### New Site Users
 
